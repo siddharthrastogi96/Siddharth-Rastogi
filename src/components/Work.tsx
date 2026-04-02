@@ -16,11 +16,14 @@ const Work = () => {
                 <h3>01</h3>
                 <div>
                   <h4>Vimukti Sansthan</h4>
-                  <p>Community-based Institutional Project</p>
+                  <p>Institutional Project</p>
                 </div>
               </div>
 
-              <p>EMPOWERING EDUCATION FOR UNDERPRIVILEGED GIRLS</p>
+              <h3 className="project-tagline">
+  Empowering Education for Underprivileged Girls, Jaipur
+</h3>
+              <p>Vimukti Sansthan Girls’ School, Jaipur is a climate-responsive campus built with local materials and participatory methods for underserved students, using perforated brick jali screens to enhance daylight, ventilation, and thermal comfort.</p>
             </div>
 
             <WorkImage
@@ -39,7 +42,10 @@ const Work = () => {
                 </div>
               </div>
 
-              <p>Floating Restaurant, Mumbai</p>
+              <h3 className="project-tagline">
+  Floating Restaurant, Mumbai
+</h3>
+              <p>Floating Fine Dine Restaurant, Mumbai is a waterfront dining project designed to enhance panoramic harbor views through a lightweight structural system and open spatial planning, creating an immersive dining experience that connects visitors to the surrounding seascape.</p>
             </div>
 
             <WorkImage
@@ -58,7 +64,10 @@ const Work = () => {
                 </div>
               </div>
 
-              <p>Buffalo Art Museum, NY</p>
+              <h3 className="project-tagline">
+  Buffalo Art Museum, NY
+</h3>
+              <p>Nexus Buffalo Art Museum is a contemporary cultural building that explores the intersection of light, materiality, and movement through fractured geometries, creating dynamic gallery spaces that connect visitors to art, landscape, and urban context.</p>
             </div>
 
             <WorkImage
@@ -77,7 +86,10 @@ const Work = () => {
                 </div>
               </div>
 
-              <p>MECHANICAL OBJECT | SPATIAL GENERATOR</p>
+              <h3 className="project-tagline">
+  Mechanical Object | Spatial Generator
+</h3>
+              <p>Lily Plate is a parametric concrete structure inspired by natural geometries, developed through computational design and digital fabrication to explore structural efficiency, modularity, and material expression.</p>
             </div>
 
             <WorkImage
@@ -96,7 +108,10 @@ const Work = () => {
                 </div>
               </div>
 
-              <p>Design For Everybody</p>
+              <h3 className="project-tagline">
+  Design for Everbody
+</h3>
+              <p>Porosity Housing, Buffalo is a mixed-use residential project that reconnects fragmented urban routes through permeable courtyards and public pathways, creating inclusive living spaces that balance community interaction with privacy.</p>
             </div>
 
             <WorkImage
@@ -110,12 +125,15 @@ const Work = () => {
               <div className="work-title">
                 <h3>06</h3>
                 <div>
-                  <h4>Modern Villa</h4>
+                  <h4>Villa</h4>
                   <p>Residential Project</p>
                 </div>
               </div>
 
-              <p>Tranquil Escape to Nature</p>
+              <h3 className="project-tagline">
+  Tranquil Escape to Nature
+</h3>
+              <p>Modern and Classical Residences include a series of housing projects that blend contemporary planning with classical design elements, creating refined elevations, functional layouts, and context-responsive living environments.</p>
             </div>
 
             <WorkImage
