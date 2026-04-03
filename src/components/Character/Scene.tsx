@@ -46,8 +46,8 @@ const Scene = () => {
 
     const camera = new THREE.PerspectiveCamera(14.5, aspect, 0.1, 1000);
     camera.position.z = 10;
-    camera.position.set(0, 13.1, 24.7);
-    camera.zoom = 1.1;
+    camera.position.set(0, 13.1, 26.5);
+    camera.zoom = 1.0;
     camera.updateProjectionMatrix();
 
     let headBone: THREE.Object3D | null = null;
@@ -83,9 +83,9 @@ const Scene = () => {
 
       // Different base position for desktop vs mobile
       if (window.innerWidth > 1024) {
-        character.position.set(-3, 0.45, 0);
+        character.position.set(-2.2, 0.45, 0);
       } else {
-        character.position.set(1, 0.45, 0);
+        character.position.set(0.35, 0.45, 0);
       }
 
       scene.add(character);
