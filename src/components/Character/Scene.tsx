@@ -81,8 +81,12 @@ const Scene = () => {
       const character = gltf.scene;
       loadedCharacter = character;
 
-      // Final base position
-      character.position.set(0.1, 0.45, 0);
+      // Different base position for desktop vs mobile
+      if (window.innerWidth > 1024) {
+        character.position.set(-0.75, 0.45, 0);
+      } else {
+        character.position.set(0.1, 0.45, 0);
+      }
 
       scene.add(character);
 
