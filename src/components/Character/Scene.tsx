@@ -82,7 +82,7 @@ const Scene = () => {
       loadedCharacter = character;
 
       // Small base correction so the character starts slightly more centered.
-      character.position.set(-0.45, 0.45, 0);
+      character.position.set(-1.25, 0.45, 0);
 
       scene.add(character);
 
