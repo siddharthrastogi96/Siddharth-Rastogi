@@ -83,9 +83,9 @@ const Scene = () => {
 
       // Different base position for desktop vs mobile
       if (window.innerWidth > 1024) {
-        character.position.set(-2, 0.45, 0);
+        character.position.set(-3, 0.45, 0);
       } else {
-        character.position.set(0.1, 0.45, 0);
+        character.position.set(0.3, 0.45, 0);
       }
 
       scene.add(character);
