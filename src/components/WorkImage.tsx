@@ -11,12 +11,20 @@ interface Props {
 const WorkImage = (props: Props) => {
   const [isVideo, setIsVideo] = useState(false);
   const [video, setVideo] = useState("");
+
   const handleMouseEnter = async () => {
     if (props.video) {
       setIsVideo(true);
-      const response = await fetch(`src/assets/${props.video}`);
+
+      const base = import.meta.env.BASE_URL;
+
+      const response = await fetch(
+        `${base}assets/${props.video}`
+      );
+
       const blob = await response.blob();
       const blobUrl = URL.createObjectURL(blob);
+
       setVideo(blobUrl);
     }
   };
@@ -29,15 +37,25 @@ const WorkImage = (props: Props) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setIsVideo(false)}
         target="_blank"
-        data-cursor={"disable"}
+        data-cursor="disable"
       >
         {props.link && (
           <div className="work-link">
             <MdArrowOutward />
           </div>
         )}
+
         <img src={props.image} alt={props.alt} />
-        {isVideo && <video src={video} autoPlay muted playsInline loop></video>}
+
+        {isVideo && (
+          <video
+            src={video}
+            autoPlay
+            muted
+            playsInline
+            loop
+          ></video>
+        )}
       </a>
     </div>
   );

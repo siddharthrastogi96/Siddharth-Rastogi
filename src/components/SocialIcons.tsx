@@ -1,61 +1,22 @@
 import { FaLinkedinIn } from "react-icons/fa6";
 import "./styles/SocialIcons.css";
 import { TbNotes } from "react-icons/tb";
-import { useEffect } from "react";
 import HoverLinks from "./HoverLinks";
 
 const SocialIcons = () => {
-  useEffect(() => {
-    const social = document.getElementById("social") as HTMLElement;
 
-    social.querySelectorAll("span").forEach((item) => {
-      const elem = item as HTMLElement;
-      const link = elem.querySelector("a") as HTMLElement;
-
-      const rect = elem.getBoundingClientRect();
-      let mouseX = rect.width / 2;
-      let mouseY = rect.height / 2;
-      let currentX = 0;
-      let currentY = 0;
-
-      const updatePosition = () => {
-        currentX += (mouseX - currentX) * 0.1;
-        currentY += (mouseY - currentY) * 0.1;
-
-        link.style.setProperty("--siLeft", `${currentX}px`);
-        link.style.setProperty("--siTop", `${currentY}px`);
-
-        requestAnimationFrame(updatePosition);
-      };
-
-      const onMouseMove = (e: MouseEvent) => {
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        if (x < 40 && x > 10 && y < 40 && y > 5) {
-          mouseX = x;
-          mouseY = y;
-        } else {
-          mouseX = rect.width / 2;
-          mouseY = rect.height / 2;
-        }
-      };
-
-      document.addEventListener("mousemove", onMouseMove);
-
-      updatePosition();
-
-      return () => {
-        elem.removeEventListener("mousemove", onMouseMove);
-      };
-    });
-  }, []);
+  const base = import.meta.env.BASE_URL;
 
   return (
     <div className="icons-section">
-      <div className="social-icons" data-cursor="icons" id="social">
+
+      <div className="social-icons">
+
         <span>
-          <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://www.linkedin.com"
+            target="_blank"
+          >
             <FaLinkedinIn />
           </a>
         </span>
@@ -64,10 +25,9 @@ const SocialIcons = () => {
           <a
             href="https://archinect.com/people/cover/150523123/siddharth-rastogi"
             target="_blank"
-            rel="noopener noreferrer"
           >
             <img
-              src="/images/archinect.png"
+              src={`${base}images/archinect.png`}
               alt="Archinect"
               className="social-icon-img"
             />
@@ -78,15 +38,15 @@ const SocialIcons = () => {
           <a
             href="https://heyzine.com/flip-book/55411cc796.html"
             target="_blank"
-            rel="noopener noreferrer"
           >
             <img
-              src="/images/heyzine.png"
+              src={`${base}images/heyzine.png`}
               alt="Heyzine"
               className="social-icon-img"
             />
           </a>
         </span>
+
       </div>
 
       <a className="resume-button" href="#">
@@ -95,6 +55,7 @@ const SocialIcons = () => {
           <TbNotes />
         </span>
       </a>
+
     </div>
   );
 };

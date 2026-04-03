@@ -7,6 +7,9 @@ import "./styles/Navbar.css";
 gsap.registerPlugin(ScrollTrigger);
 
 const Navbar = () => {
+
+  const base = import.meta.env.BASE_URL;
+
   useEffect(() => {
     const links = document.querySelectorAll(".header ul a");
 
@@ -34,24 +37,21 @@ const Navbar = () => {
       });
     });
 
-    const handleResize = () => {
-      ScrollTrigger.refresh();
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => {};
   }, []);
 
   return (
     <>
       <div className="header">
-        <a href="/#" className="navbar-title" data-cursor="disable">
+
+        <a
+          href={`${base}#`}
+          className="navbar-title"
+          data-cursor="disable"
+        >
           <img
-            src="/images/logo.png"
-            alt="Siddharth Rastogi Logo"
+            src={`${base}images/logo.png`}
+            alt="Logo"
             className="logo-img"
           />
         </a>
@@ -70,22 +70,21 @@ const Navbar = () => {
               <HoverLinks text="ABOUT" />
             </a>
           </li>
+
           <li>
             <a data-href="#work" href="#work">
               <HoverLinks text="WORK" />
             </a>
           </li>
+
           <li>
             <a data-href="#contact" href="#contact">
               <HoverLinks text="CONTACT" />
             </a>
           </li>
         </ul>
-      </div>
 
-      <div className="landing-circle1"></div>
-      <div className="landing-circle2"></div>
-      <div className="nav-fade"></div>
+      </div>
     </>
   );
 };
