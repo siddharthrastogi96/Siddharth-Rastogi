@@ -3,263 +3,144 @@ import * as THREE from "three";
 
 import setCharacter from "./utils/character";
 import setLighting from "./utils/lighting";
-
 import { useLoading } from "../../context/LoadingProvider";
-
 import handleResize from "./utils/resizeUtils";
-
 import {
   handleMouseMove,
   handleTouchEnd,
   handleHeadRotation,
   handleTouchMove,
 } from "./utils/mouseUtils";
-
 import setAnimations from "./utils/animationUtils";
-
 import { setProgress } from "../Loading";
 
 const Scene = () => {
-
   const canvasDiv = useRef<HTMLDivElement | null>(null);
   const hoverDivRef = useRef<HTMLDivElement>(null);
-
   const sceneRef = useRef(new THREE.Scene());
-
   const { setLoading } = useLoading();
 
   useEffect(() => {
-
     if (!canvasDiv.current) return;
 
-    let rect =
-      canvasDiv.current.getBoundingClientRect();
-
-    let container = {
+    const rect = canvasDiv.current.getBoundingClientRect();
+    const container = {
       width: rect.width,
       height: rect.height,
     };
 
-    const aspect =
-      container.width / container.height;
-
+    const aspect = container.width / container.height;
     const scene = sceneRef.current;
 
-    const renderer =
-      new THREE.WebGLRenderer({
-        alpha: true,
-        antialias: true,
-      });
+    const renderer = new THREE.WebGLRenderer({
+      alpha: true,
+      antialias: true,
+    });
 
-    renderer.setSize(
-      container.width,
-      container.height
-    );
-
-    renderer.setPixelRatio(
-      window.devicePixelRatio
-    );
-
-    renderer.toneMapping =
-      THREE.ACESFilmicToneMapping;
-
+    renderer.setSize(container.width, container.height);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1;
 
-    canvasDiv.current.appendChild(
-      renderer.domElement
-    );
+    canvasDiv.current.appendChild(renderer.domElement);
 
-    // 🎯 CAMERA (CENTERED CHARACTER)
-
-    const camera =
-      new THREE.PerspectiveCamera(
-        14.5,
-        aspect,
-        0.1,
-        1000
-      );
-
+    const camera = new THREE.PerspectiveCamera(14.5, aspect, 0.1, 1000);
     camera.position.z = 10;
-
-    // ⭐ CENTER FIX HERE
     camera.position.set(0, 13.1, 24.7);
-
     camera.zoom = 1.1;
-
     camera.updateProjectionMatrix();
 
     let headBone: THREE.Object3D | null = null;
-
     let screenLight: any | null = null;
-
-    let mixer: THREE.AnimationMixer;
+    let mixer: THREE.AnimationMixer | undefined;
+    let loadedCharacter: THREE.Object3D | null = null;
 
     const clock = new THREE.Clock();
-
     const light = setLighting(scene);
 
-    let progress = setProgress(
-      (value) => setLoading(value)
-    );
+    const progress = setProgress((value) => setLoading(value));
+    const { loadCharacter } = setCharacter(renderer, scene, camera);
 
-    const { loadCharacter } =
-      setCharacter(
-        renderer,
-        scene,
-        camera
-      );
+    const resizeHandler = () => {
+      if (loadedCharacter) {
+        handleResize(renderer, camera, canvasDiv, loadedCharacter);
+      }
+    };
 
     loadCharacter().then((gltf) => {
-
       if (!gltf) return;
 
-      const animations =
-        setAnimations(gltf);
+      const animations = setAnimations(gltf);
 
       if (hoverDivRef.current) {
-
-        animations.hover(
-          gltf,
-          hoverDivRef.current
-        );
+        animations.hover(gltf, hoverDivRef.current);
       }
 
       mixer = animations.mixer;
 
-      let character =
-        gltf.scene;
+      const character = gltf.scene;
+      loadedCharacter = character;
+
+      // Small base correction so the character starts slightly more centered.
+      character.position.set(-0.35, 0.45, 0);
 
       scene.add(character);
 
-      headBone =
-        character.getObjectByName(
-          "spine006"
-        ) || null;
-
-      screenLight =
-        character.getObjectByName(
-          "screenlight"
-        ) || null;
+      headBone = character.getObjectByName("spine006") || null;
+      screenLight = character.getObjectByName("screenlight") || null;
 
       progress.loaded().then(() => {
-
         setTimeout(() => {
-
           light.turnOnLights();
-
           animations.startIntro();
-
         }, 2500);
-
       });
 
-      window.addEventListener(
-        "resize",
-        () =>
-          handleResize(
-            renderer,
-            camera,
-            canvasDiv,
-            character
-          )
-      );
-
+      window.addEventListener("resize", resizeHandler);
     });
 
     let mouse = { x: 0, y: 0 };
+    let interpolation = { x: 0.1, y: 0.2 };
 
-    let interpolation = {
-      x: 0.1,
-      y: 0.2,
-    };
-
-    const onMouseMove = (
-      event: MouseEvent
-    ) => {
-
-      handleMouseMove(
-        event,
-        (x, y) => {
-          mouse = { x, y };
-        }
-      );
-
+    const onMouseMove = (event: MouseEvent) => {
+      handleMouseMove(event, (x, y) => {
+        mouse = { x, y };
+      });
     };
 
     let debounce: number | undefined;
 
-    const onTouchStart = (
-      event: TouchEvent
-    ) => {
+    const onTouchStart = (event: TouchEvent) => {
+      const element = event.target as HTMLElement;
 
-      const element =
-        event.target as HTMLElement;
-
-      debounce = setTimeout(() => {
-
-        element?.addEventListener(
-          "touchmove",
-          (e: TouchEvent) =>
-            handleTouchMove(
-              e,
-              (x, y) => {
-                mouse = { x, y };
-              }
-            )
+      debounce = window.setTimeout(() => {
+        element?.addEventListener("touchmove", (e: TouchEvent) =>
+          handleTouchMove(e, (x, y) => {
+            mouse = { x, y };
+          })
         );
-
       }, 200);
-
     };
 
     const onTouchEnd = () => {
-
-      handleTouchEnd(
-        (x, y, ix, iy) => {
-
-          mouse = { x, y };
-
-          interpolation = {
-            x: ix,
-            y: iy,
-          };
-
-        }
-      );
-
+      handleTouchEnd((x, y, ix, iy) => {
+        mouse = { x, y };
+        interpolation = { x: ix, y: iy };
+      });
     };
 
-    document.addEventListener(
-      "mousemove",
-      onMouseMove
-    );
+    document.addEventListener("mousemove", onMouseMove);
 
-    const landingDiv =
-      document.getElementById(
-        "landingDiv"
-      );
-
+    const landingDiv = document.getElementById("landingDiv");
     if (landingDiv) {
-
-      landingDiv.addEventListener(
-        "touchstart",
-        onTouchStart
-      );
-
-      landingDiv.addEventListener(
-        "touchend",
-        onTouchEnd
-      );
+      landingDiv.addEventListener("touchstart", onTouchStart);
+      landingDiv.addEventListener("touchend", onTouchEnd);
     }
 
     const animate = () => {
-
-      requestAnimationFrame(
-        animate
-      );
+      requestAnimationFrame(animate);
 
       if (headBone) {
-
         handleHeadRotation(
           headBone,
           mouse.x,
@@ -269,88 +150,47 @@ const Scene = () => {
           THREE.MathUtils.lerp
         );
 
-        light.setPointLight(
-          screenLight
-        );
+        light.setPointLight(screenLight);
       }
 
-      const delta =
-        clock.getDelta();
+      const delta = clock.getDelta();
 
       if (mixer) {
-
         mixer.update(delta);
-
       }
 
-      renderer.render(
-        scene,
-        camera
-      );
-
+      renderer.render(scene, camera);
     };
 
     animate();
 
     return () => {
-
       clearTimeout(debounce);
-
       scene.clear();
-
       renderer.dispose();
 
-      if (canvasDiv.current) {
+      window.removeEventListener("resize", resizeHandler);
+      document.removeEventListener("mousemove", onMouseMove);
 
-        canvasDiv.current.removeChild(
-          renderer.domElement
-        );
+      if (canvasDiv.current && renderer.domElement.parentNode === canvasDiv.current) {
+        canvasDiv.current.removeChild(renderer.domElement);
       }
 
       if (landingDiv) {
-
-        document.removeEventListener(
-          "mousemove",
-          onMouseMove
-        );
-
-        landingDiv.removeEventListener(
-          "touchstart",
-          onTouchStart
-        );
-
-        landingDiv.removeEventListener(
-          "touchend",
-          onTouchEnd
-        );
+        landingDiv.removeEventListener("touchstart", onTouchStart);
+        landingDiv.removeEventListener("touchend", onTouchEnd);
       }
-
     };
-
-  }, []);
+  }, [setLoading]);
 
   return (
-
     <div className="character-container">
-
-      <div
-        className="character-model"
-        ref={canvasDiv}
-      >
-
+      <div className="character-model" ref={canvasDiv}>
         <div className="character-rim"></div>
-
-        <div
-          className="character-hover"
-          ref={hoverDivRef}
-        ></div>
-
+        <div className="character-hover" ref={hoverDivRef}></div>
       </div>
-
     </div>
-
   );
-
 };
 
 export default Scene;
