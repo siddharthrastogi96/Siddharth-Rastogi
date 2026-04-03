@@ -81,8 +81,7 @@ const Scene = () => {
       const character = gltf.scene;
       loadedCharacter = character;
 
-      // Revised base position:
-      // move slightly right and slightly up
+      // Final base position
       character.position.set(0.1, 0.45, 0);
 
       scene.add(character);
