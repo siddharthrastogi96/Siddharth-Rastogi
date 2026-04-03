@@ -1,109 +1,169 @@
-import React from "react";
+import "./styles/Work.css";
 import WorkImage from "./WorkImage";
 
-const base = import.meta.env.BASE_URL;
-
-const works = [
-  {
-    number: "01",
-    title: "Vimukti Sansthan",
-    type: "Institutional Project",
-    heading: "Empowering Education for Underprivileged Girls, Jaipur",
-    description:
-      "Vimukti Sansthan Girls’ School, Jaipur is a climate-responsive campus built with local materials and participatory methods using perforated brick jali screens.",
-    image: `${base}images/featured.jpg`,
-  },
-
-  {
-    number: "02",
-    title: "Queensline",
-    type: "Interior Project",
-    heading: "Floating Restaurant, Mumbai",
-    description:
-      "Floating fine dine restaurant designed to enhance harbor views with lightweight structural planning.",
-    image: `${base}images/heyizine.png`,
-  },
-
-  {
-    number: "03",
-    title: "NEXUS",
-    type: "Academic Project",
-    heading: "Buffalo Art Museum",
-    description:
-      "Contemporary museum exploring fractured geometries and daylight-driven spatial experience.",
-    image: `${base}images/museum.png`,
-  },
-
-  {
-    number: "04",
-    title: "Lily Plate",
-    type: "Parametric Project",
-    heading: "Concrete Parametric Structure",
-    description:
-      "Parametric exploration of geometry and structure developed using Grasshopper workflows.",
-    image: `${base}images/archinect.png`,
-  },
-
-  {
-    number: "05",
-    title: "Porosity",
-    type: "Urban Housing",
-    heading: "Mixed-Use Housing Development",
-    description:
-      "Transit-oriented development reconnecting urban pathways and activating public courtyards.",
-    image: `${base}images/porosity.png`,
-  },
-
-  {
-    number: "06",
-    title: "Residential Project",
-    type: "Professional Work",
-    heading: "Modern and Classical Residences",
-    description:
-      "Residential projects integrating modern planning with classical architectural detailing.",
-    image: `${base}images/resi.png`,
-  },
-];
-
 const Work = () => {
+  const base = import.meta.env.BASE_URL;
+
   return (
-    <section id="work" className="work-section">
-      <div className="work-container">
+    <div className="work-section" id="work">
+      <div className="work-container section-container">
+        <h2>
+          My <span>Work</span>
+        </h2>
 
-        {works.map((work, index) => (
-          <div className="work-item" key={index}>
+        <div className="work-grid">
+          <div className="work-box">
+            <div className="work-info">
+              <div className="work-title">
+                <h3>01</h3>
+                <div>
+                  <h4>Vimukti Sansthan</h4>
+                  <p>Institutional Project</p>
+                </div>
+              </div>
 
-            <div className="work-text">
-
-              <h1 className="work-number">
-                {work.number}
-              </h1>
-
-              <h2 className="work-title">
-                {work.title}
-              </h2>
-
-              <p className="work-type">
-                {work.type}
-              </p>
-
-              <h3 className="work-heading">
-                {work.heading}
+              <h3 className="project-tagline">
+                Empowering Education for Underprivileged Girls, Jaipur
               </h3>
-
-              <p className="work-description">
-                {work.description}
+              <p>
+                Vimukti Sansthan Girls’ School, Jaipur is a climate-responsive
+                campus built with local materials and participatory methods using
+                perforated brick jali screens to enhance daylight, ventilation,
+                and thermal comfort.
               </p>
-
             </div>
 
-            <WorkImage image={work.image} />
-
+            <WorkImage
+              image={`${base}images/featured.jpg`}
+              alt="Vimukti Sansthan Girls School"
+            />
           </div>
-        ))}
 
+          <div className="work-box">
+            <div className="work-info">
+              <div className="work-title">
+                <h3>02</h3>
+                <div>
+                  <h4>Queensline</h4>
+                  <p>Interior Project</p>
+                </div>
+              </div>
+
+              <h3 className="project-tagline">Floating Restaurant, Mumbai</h3>
+              <p>
+                Floating Fine Dine Restaurant, Mumbai is a waterfront dining
+                project designed to enhance panoramic harbor views through a
+                lightweight structural system and open spatial planning.
+              </p>
+            </div>
+
+            <WorkImage
+              image={`${base}images/cam.jpg`}
+              alt="CAM Restaurant Interior"
+            />
+          </div>
+
+          <div className="work-box">
+            <div className="work-info">
+              <div className="work-title">
+                <h3>03</h3>
+                <div>
+                  <h4>NEXUS</h4>
+                  <p>Academic Project</p>
+                </div>
+              </div>
+
+              <h3 className="project-tagline">Buffalo Art Museum, NY</h3>
+              <p>
+                Nexus Buffalo Art Museum is a contemporary cultural building
+                that explores the intersection of light, materiality, and
+                movement through fractured geometries.
+              </p>
+            </div>
+
+            <WorkImage
+              image={`${base}images/museum.png`}
+              alt="Nexus Buffalo Museum"
+            />
+          </div>
+
+          <div className="work-box">
+            <div className="work-info">
+              <div className="work-title">
+                <h3>04</h3>
+                <div>
+                  <h4>Lily Plate</h4>
+                  <p>Academic Project</p>
+                </div>
+              </div>
+
+              <h3 className="project-tagline">
+                Mechanical Object | Spatial Generator
+              </h3>
+              <p>
+                Lily Plate is a parametric concrete structure inspired by
+                natural geometries, developed through computational design and
+                digital fabrication to explore structural efficiency, modularity,
+                and material expression.
+              </p>
+            </div>
+
+            <WorkImage
+              image={`${base}images/tet.jpg`}
+              alt="Lily Plate Parametric Structure"
+            />
+          </div>
+
+          <div className="work-box">
+            <div className="work-info">
+              <div className="work-title">
+                <h3>05</h3>
+                <div>
+                  <h4>Porosity</h4>
+                  <p>Inclusive Design</p>
+                </div>
+              </div>
+
+              <h3 className="project-tagline">Design for Everybody</h3>
+              <p>
+                Porosity Housing, Buffalo is a mixed-use residential project
+                that reconnects fragmented urban routes through permeable
+                courtyards and public pathways.
+              </p>
+            </div>
+
+            <WorkImage
+              image={`${base}images/porosity.png`}
+              alt="Porosity Housing Project"
+            />
+          </div>
+
+          <div className="work-box">
+            <div className="work-info">
+              <div className="work-title">
+                <h3>06</h3>
+                <div>
+                  <h4>Villa</h4>
+                  <p>Residential Project</p>
+                </div>
+              </div>
+
+              <h3 className="project-tagline">Tranquil Escape to Nature</h3>
+              <p>
+                Modern and Classical Residences include a series of housing
+                projects that blend contemporary planning with classical design
+                elements, creating refined elevations and functional layouts.
+              </p>
+            </div>
+
+            <WorkImage
+              image={`${base}images/resi.png`}
+              alt="Residential Architecture Project"
+            />
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
 
