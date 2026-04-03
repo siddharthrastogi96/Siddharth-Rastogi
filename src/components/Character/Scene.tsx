@@ -81,8 +81,9 @@ const Scene = () => {
       const character = gltf.scene;
       loadedCharacter = character;
 
-      // Small base correction so the character starts slightly more centered.
-      character.position.set(-4, 0.45, 0);
+      // Revised base position:
+      // move slightly right and slightly up
+      character.position.set(0.1, 0.45, 0);
 
       scene.add(character);
 
@@ -172,7 +173,10 @@ const Scene = () => {
       window.removeEventListener("resize", resizeHandler);
       document.removeEventListener("mousemove", onMouseMove);
 
-      if (canvasDiv.current && renderer.domElement.parentNode === canvasDiv.current) {
+      if (
+        canvasDiv.current &&
+        renderer.domElement.parentNode === canvasDiv.current
+      ) {
         canvasDiv.current.removeChild(renderer.domElement);
       }
 

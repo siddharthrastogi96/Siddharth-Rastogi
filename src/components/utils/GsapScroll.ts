@@ -79,8 +79,8 @@ export function setCharTimeline(
       tl1
         .fromTo(character.rotation, { y: 0 }, { y: 0.7, duration: 1 }, 0)
         .to(camera.position, { z: 22 }, 0)
-        // Much softer horizontal movement than before
-        .fromTo(".character-model", { x: "0%" }, { x: "-6%", duration: 1 }, 0)
+        // Reduced shift from tutorial for your model
+        .fromTo(".character-model", { x: "0%" }, { x: "-3%", duration: 1 }, 0)
         .to(".landing-container", { opacity: 0, duration: 0.4 }, 0)
         .to(".landing-container", { y: "40%", duration: 0.8 }, 0)
         .fromTo(".about-me", { y: "-50%" }, { y: "0%" }, 0);
@@ -95,8 +95,8 @@ export function setCharTimeline(
         .to(".about-section", { opacity: 0, delay: 3, duration: 2 }, 0)
         .fromTo(
           ".character-model",
-          { pointerEvents: "inherit", x: "-6%" },
-          { pointerEvents: "none", x: "-4%", delay: 2, duration: 5 },
+          { pointerEvents: "inherit", x: "-3%" },
+          { pointerEvents: "none", x: "-2%", delay: 2, duration: 5 },
           0
         )
         .to(character.rotation, { y: 0.92, x: 0.12, delay: 3, duration: 3 }, 0)
