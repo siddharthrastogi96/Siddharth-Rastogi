@@ -10,7 +10,7 @@ const works = [
     type: "Institutional Project",
     heading: "Empowering Education for Underprivileged Girls, Jaipur",
     description:
-      "Vimukti Sansthan Girls’ School is a climate-responsive campus built using locally sourced materials and participatory construction techniques with perforated brick jali screens.",
+      "Vimukti Sansthan Girls’ School, Jaipur is a climate-responsive campus built with local materials and participatory methods using perforated brick jali screens.",
     image: `${base}images/featured.jpg`,
   },
 
@@ -20,7 +20,7 @@ const works = [
     type: "Interior Project",
     heading: "Floating Restaurant, Mumbai",
     description:
-      "Floating fine-dine restaurant designed to enhance harbor views with lightweight structural planning and immersive dining experience.",
+      "Floating fine dine restaurant designed to enhance harbor views with lightweight structural planning.",
     image: `${base}images/heyizine.png`,
   },
 
@@ -30,64 +30,78 @@ const works = [
     type: "Academic Project",
     heading: "Buffalo Art Museum",
     description:
-      "Contemporary museum exploring fractured geometries, daylight-driven galleries, and strong urban presence in Buffalo.",
+      "Contemporary museum exploring fractured geometries and daylight-driven spatial experience.",
     image: `${base}images/museum.png`,
   },
 
   {
     number: "04",
-    title: "Porosity",
-    type: "Urban Housing",
-    heading: "Mixed-Use Housing Development",
+    title: "Lily Plate",
+    type: "Parametric Project",
+    heading: "Concrete Parametric Structure",
     description:
-      "Transit-oriented housing reconnecting urban pathways and activating public landscapes through porous planning strategies.",
-    image: `${base}images/porosity.png`,
+      "Parametric exploration of geometry and structure developed using Grasshopper workflows.",
+    image: `${base}images/archinect.png`,
   },
 
   {
     number: "05",
-    title: "Residential Project",
-    type: "Professional Work",
-    heading: "Modern and Classical Residences",
+    title: "Porosity",
+    type: "Urban Housing",
+    heading: "Mixed-Use Housing Development",
     description:
-      "Residential developments integrating contemporary detailing with classical spatial principles and refined material palettes.",
-    image: `${base}images/resi.png`,
+      "Transit-oriented development reconnecting urban pathways and activating public courtyards.",
+    image: `${base}images/porosity.png`,
   },
 
   {
     number: "06",
-    title: "Technical Exploration",
-    type: "Research Project",
-    heading: "Material and Structural Study",
+    title: "Residential Project",
+    type: "Professional Work",
+    heading: "Modern and Classical Residences",
     description:
-      "Experimental research focused on fabrication techniques, structural systems, and digital modeling workflows.",
-    image: `${base}images/tet.jpg`,
+      "Residential projects integrating modern planning with classical architectural detailing.",
+    image: `${base}images/resi.png`,
   },
 ];
 
 const Work = () => {
   return (
-    <section className="work-section" id="work">
+    <section id="work" className="work-section">
       <div className="work-container">
+
         {works.map((work, index) => (
           <div className="work-item" key={index}>
+
             <div className="work-text">
-              <h1 className="work-number">{work.number}</h1>
 
-              <h2 className="work-title">{work.title}</h2>
+              <h1 className="work-number">
+                {work.number}
+              </h1>
 
-              <p className="work-type">{work.type}</p>
+              <h2 className="work-title">
+                {work.title}
+              </h2>
 
-              <h3 className="work-heading">{work.heading}</h3>
+              <p className="work-type">
+                {work.type}
+              </p>
+
+              <h3 className="work-heading">
+                {work.heading}
+              </h3>
 
               <p className="work-description">
                 {work.description}
               </p>
+
             </div>
 
             <WorkImage image={work.image} />
+
           </div>
         ))}
+
       </div>
     </section>
   );
