@@ -10,24 +10,28 @@ const setCharacter = (
 ) => {
   const loader = new GLTFLoader();
   const dracoLoader = new DRACOLoader();
-  dracoLoader.setDecoderPath("/draco/");
+
+  const base = import.meta.env.BASE_URL;
+  dracoLoader.setDecoderPath(`${base}draco/`);
   loader.setDRACOLoader(dracoLoader);
 
   const loadCharacter = () => {
     return new Promise<GLTF | null>(async (resolve, reject) => {
       try {
         const encryptedBlob = await decryptFile(
-          "/models/character.enc",
+          `${base}models/character.enc`,
           "Character3D#@"
         );
+
         const blobUrl = URL.createObjectURL(new Blob([encryptedBlob]));
 
-        let character: THREE.Object3D;
         loader.load(
           blobUrl,
           async (gltf) => {
-            character = gltf.scene;
+            const character = gltf.scene;
+
             await renderer.compileAsync(character, camera, scene);
+
             character.traverse((child: any) => {
               if (child.isMesh) {
                 const mesh = child as THREE.Mesh;
@@ -36,11 +40,15 @@ const setCharacter = (
                 mesh.frustumCulled = true;
               }
             });
+
             resolve(gltf);
+
             setCharTimeline(character, camera);
             setAllTimeline();
-            character!.getObjectByName("footR")!.position.y = 3.36;
-            character!.getObjectByName("footL")!.position.y = 3.36;
+
+            character.getObjectByName("footR")?.position.setY(3.36);
+            character.getObjectByName("footL")?.position.setY(3.36);
+
             dracoLoader.dispose();
           },
           undefined,
@@ -50,8 +58,8 @@ const setCharacter = (
           }
         );
       } catch (err) {
-        reject(err);
         console.error(err);
+        reject(err);
       }
     });
   };
