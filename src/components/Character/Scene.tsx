@@ -82,7 +82,7 @@ const Scene = () => {
     camera.position.z = 10;
 
     // ⭐ CENTER FIX HERE
-    camera.position.set(0, 13.1, 24.7);
+    camera.position.set(-1.5, 13.1, 24.7);
 
     camera.zoom = 1.1;
 
