@@ -85,7 +85,7 @@ const Scene = () => {
       if (window.innerWidth > 1024) {
         character.position.set(-3, 0.45, 0);
       } else {
-        character.position.set(0.3, 0.45, 0);
+        character.position.set(1, 0.45, 0);
       }
 
       scene.add(character);
