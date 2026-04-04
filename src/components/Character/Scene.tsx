@@ -21,12 +21,12 @@ const VIEW_CONFIG = {
     camera: {
       x: 0,
       y: 13.1,
-      z: 29.5,
-      zoom: 0.95,
+      z: 30.4,
+      zoom: 0.93,
     },
     character: {
-      x: -2.0,
-      y: 0.1,
+      x: -1.55,
+      y: 0.02,
       z: 0,
     },
   },
