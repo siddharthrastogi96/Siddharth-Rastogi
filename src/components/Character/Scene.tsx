@@ -14,50 +14,18 @@ import {
 import setAnimations from "./utils/animationUtils";
 import { setProgress } from "../Loading";
 
-const DESKTOP_BREAKPOINT = 1024;
-
-const VIEW_CONFIG = {
-  desktop: {
-    camera: {
-      x: 0,
-      y: 13.1,
-      z: 30.4,
-      zoom: 0.93,
-    },
-    character: {
-      x: -1.55,
-      y: 0.02,
-      z: 0,
-    },
-  },
-  mobile: {
-    camera: {
-      x: 0,
-      y: 13.1,
-      z: 24.7,
-      zoom: 1.05,
-    },
-    character: {
-      x: 0.35,
-      y: 0.45,
-      z: 0,
-    },
-  },
-};
-
-const getViewMode = () =>
-  window.innerWidth > DESKTOP_BREAKPOINT ? "desktop" : "mobile";
-
 const Scene = () => {
   const canvasDiv = useRef<HTMLDivElement | null>(null);
   const hoverDivRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef(new THREE.Scene());
+
   const { setLoading } = useLoading();
 
   useEffect(() => {
     if (!canvasDiv.current) return;
 
     const rect = canvasDiv.current.getBoundingClientRect();
+
     const container = {
       width: rect.width,
       height: rect.height,
@@ -78,16 +46,10 @@ const Scene = () => {
 
     canvasDiv.current.appendChild(renderer.domElement);
 
-    const viewMode = getViewMode();
-    const initialView = VIEW_CONFIG[viewMode];
-
     const camera = new THREE.PerspectiveCamera(14.5, aspect, 0.1, 1000);
-    camera.position.set(
-      initialView.camera.x,
-      initialView.camera.y,
-      initialView.camera.z
-    );
-    camera.zoom = initialView.camera.zoom;
+    camera.position.z = 10;
+    camera.position.set(0, 13.1, 24.7);
+    camera.zoom = 1.1;
     camera.updateProjectionMatrix();
 
     let headBone: THREE.Object3D | null = null;
@@ -120,13 +82,6 @@ const Scene = () => {
 
       const character = gltf.scene;
       loadedCharacter = character;
-
-      const currentView = VIEW_CONFIG[getViewMode()];
-      character.position.set(
-        currentView.character.x,
-        currentView.character.y,
-        currentView.character.z
-      );
 
       scene.add(character);
 
@@ -176,6 +131,7 @@ const Scene = () => {
     document.addEventListener("mousemove", onMouseMove);
 
     const landingDiv = document.getElementById("landingDiv");
+
     if (landingDiv) {
       landingDiv.addEventListener("touchstart", onTouchStart);
       landingDiv.addEventListener("touchend", onTouchEnd);
@@ -210,6 +166,7 @@ const Scene = () => {
 
     return () => {
       clearTimeout(debounce);
+
       scene.clear();
       renderer.dispose();
 
