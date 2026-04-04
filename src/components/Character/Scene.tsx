@@ -14,6 +14,40 @@ import {
 import setAnimations from "./utils/animationUtils";
 import { setProgress } from "../Loading";
 
+const DESKTOP_BREAKPOINT = 1024;
+
+const VIEW_CONFIG = {
+  desktop: {
+    camera: {
+      x: 0,
+      y: 13.1,
+      z: 29.5,
+      zoom: 0.95,
+    },
+    character: {
+      x: -2.0,
+      y: 0.1,
+      z: 0,
+    },
+  },
+  mobile: {
+    camera: {
+      x: 0,
+      y: 13.1,
+      z: 24.7,
+      zoom: 1.05,
+    },
+    character: {
+      x: 0.35,
+      y: 0.45,
+      z: 0,
+    },
+  },
+};
+
+const getViewMode = () =>
+  window.innerWidth > DESKTOP_BREAKPOINT ? "desktop" : "mobile";
+
 const Scene = () => {
   const canvasDiv = useRef<HTMLDivElement | null>(null);
   const hoverDivRef = useRef<HTMLDivElement>(null);
@@ -44,10 +78,16 @@ const Scene = () => {
 
     canvasDiv.current.appendChild(renderer.domElement);
 
+    const viewMode = getViewMode();
+    const initialView = VIEW_CONFIG[viewMode];
+
     const camera = new THREE.PerspectiveCamera(14.5, aspect, 0.1, 1000);
-    camera.position.z = 10;
-    camera.position.set(0, 13.1, 26.5);
-    camera.zoom = 1.0;
+    camera.position.set(
+      initialView.camera.x,
+      initialView.camera.y,
+      initialView.camera.z
+    );
+    camera.zoom = initialView.camera.zoom;
     camera.updateProjectionMatrix();
 
     let headBone: THREE.Object3D | null = null;
@@ -81,12 +121,12 @@ const Scene = () => {
       const character = gltf.scene;
       loadedCharacter = character;
 
-      // Different base position for desktop vs mobile
-      if (window.innerWidth > 1024) {
-        character.position.set(-2.2, 0.45, 0);
-      } else {
-        character.position.set(0.35, 0.45, 0);
-      }
+      const currentView = VIEW_CONFIG[getViewMode()];
+      character.position.set(
+        currentView.character.x,
+        currentView.character.y,
+        currentView.character.z
+      );
 
       scene.add(character);
 

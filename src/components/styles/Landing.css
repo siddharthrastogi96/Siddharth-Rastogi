@@ -103,7 +103,7 @@
   position: absolute;
   max-width: 1920px;
   max-height: 1080px;
-  transform: translateX(-50%);
+  transform: translate(-50%, 0%);
   width: 100%;
   left: 50%;
   z-index: 0;
@@ -178,10 +178,6 @@
   font-weight: 500;
   font-family: "Geist", sans-serif;
 }
-
-/* .landing-intro h1 span {
-   font-weight: 200; 
-} */
 
 .landing-info {
   position: absolute;
@@ -293,7 +289,7 @@ h2.landing-info-h2 {
 }
 @media screen and (min-width: 1025px) {
   .character-model {
-    height: 100vh;
+    height: 90vh;
     bottom: 0;
     z-index: 11;
     position: fixed;
