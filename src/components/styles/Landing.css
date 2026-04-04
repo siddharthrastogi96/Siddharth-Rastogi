@@ -324,7 +324,7 @@ h2.landing-info-h2 {
 
 @media screen and (min-width: 1025px) {
   .character-model {
-    height: 100vh;
+    height: 88vh;
     bottom: 0;
     z-index: 11;
     position: fixed;
@@ -338,18 +338,18 @@ h2.landing-info-h2 {
   .landing-intro {
     top: 50%;
     left: auto;
-    right: 66%;
+    right: 68%;
     transform: translate(0%, -50%);
   }
 
   .landing-info {
     bottom: auto;
-    top: 51%;
+    top: 50%;
     z-index: inherit;
     text-align: left;
-    transform: translate(0%, -50%);
+    transform: translate(-50%, -50%);
     right: auto;
-    left: 66%;
+    left: 60%;
   }
 }
 
@@ -363,12 +363,12 @@ h2.landing-info-h2 {
 
   .landing-info {
     bottom: auto;
-    top: 51%;
+    top: 50%;
     z-index: inherit;
     text-align: left;
-    transform: translate(0%, -50%);
+    transform: translate(-50%, -50%);
     right: auto;
-    left: 70%;
+    left: 61%;
   }
 }
 
